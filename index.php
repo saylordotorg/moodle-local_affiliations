@@ -87,11 +87,8 @@ if (isloggedin() && !isguestuser($USER) && !is_mnet_remote_user($USER) && confir
         }
 
         if ($success == true) {
-            // Success. Show success message.
-            echo $OUTPUT->header(get_string('manageaffiliations', 'local_affiliations'));
-            echo $OUTPUT->notification(get_string('manageaffiliationssuccess', 'local_affiliations'), 'notifysuccess');
-            echo $OUTPUT->footer();
-            exit;
+            // Success. Show success message and redirect back to the profile.
+            redirect('/user/profile.php?id='.$USER->id, get_string('manageaffiliationssuccess', 'local_affiliations'), 'success');
         } else {
             $error .= $OUTPUT->notification(get_string('manageaffiliationserror', 'local_affiliations'));
         }
