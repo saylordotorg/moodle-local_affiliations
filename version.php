@@ -29,8 +29,8 @@
  *
  */
 
-$plugin->version  = 2018013118;
+$plugin->version  = 2018030700;
 $plugin->requires = 2016120500;
-$plugin->release = '0.1';
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->release = '0.2';
+$plugin->maturity = MATURITY_BETA;
 $plugin->component = 'local_affiliations';
