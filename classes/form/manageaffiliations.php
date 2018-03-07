@@ -69,7 +69,7 @@ class manageaffiliations extends moodleform {
         }
         
 
-        $this->add_action_buttons(false, get_string('submit'));
+        $this->add_action_buttons(true, get_string('submit'));
 
     }
 

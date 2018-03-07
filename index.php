@@ -96,6 +96,12 @@ if (isloggedin() && !isguestuser($USER) && !is_mnet_remote_user($USER) && confir
             $error .= $OUTPUT->notification(get_string('manageaffiliationserror', 'local_affiliations'));
         }
     }
+
+    if ($form->is_cancelled()){
+        // Form has been cancelled, redirect back to the profile.
+        redirect('/user/profile.php?id='.$USER->id, '');
+    }
+
     if ($data = $form->get_data()) {
         $submittedaffiliations = $data->submittedaffiliations;
 
