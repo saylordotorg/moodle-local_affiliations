@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Affiliations
  *
@@ -29,8 +30,20 @@
  *
  */
 
-$plugin->version  = 2018013118;
-$plugin->requires = 2016120500;
-$plugin->release = '0.1';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->component = 'local_affiliations';
+namespace local_affiliations\output;
+
+defined('MOODLE_INTERNAL') || die();
+
+class renderer extends \plugin_renderer_base {
+    /**
+     * Render the affiliates management page.
+     *
+     * @param \templatable $manageaffiliatespage
+     * @return string|boolean
+     */
+    public function render_manageaffiliatespage(\templatable $manageaffiliatespage) {
+        $data = $manageaffiliatespage->export_for_template($this);
+        return $this->render_from_template('local_affiliations/manageaffiliatespage', $data);
+    }
+
+}

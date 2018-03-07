@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Affiliations
  *
@@ -29,8 +30,41 @@
  *
  */
 
-$plugin->version  = 2018013118;
-$plugin->requires = 2016120500;
-$plugin->release = '0.1';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->component = 'local_affiliations';
+namespace local_affiliations\output;
+
+defined('MOODLE_INTERNAL') || die();
+
+class manageaffiliatespage implements \renderable, \templatable {
+    /**
+     * An array of the current affiliates
+     *
+     * @var array
+     */
+    protected $affiliates;
+
+    public function __construct() {
+        $this->affiliates = [];
+        
+    }
+    /**
+     * Prepare data for use in a template
+     *
+     * @param \renderer_base $output
+     * @return array
+     */
+    public function export_for_template(\renderer_base $output) {
+        global $DB;
+
+        // Get all the affiliates and load into an array.
+        $affiliates = $DB->get_records('local_affiliations_affiliate');
+
+        foreach ($affiliates as $affiliate) {
+            $data['affiliates'][] = array('id' => $affiliate->id,
+                                    'cohortid' => $affiliate->cohortid,
+                                    'fullname' => $affiliate->fullname,
+                                    'shortname' => $affiliate->shortname);
+        }
+
+        return $data;
+    }
+}
