@@ -38,8 +38,32 @@ if ($hassiteconfig) {
     $moderator = get_admin();
     $site = get_site();
 
-    $settings = new admin_settingpage('local_affiliations', get_string('pluginname', 'local_affiliations'));
-    $ADMIN->add('localplugins', $settings);
+
+    // Add Affiliations category to local plugins node.
+    $ADMIN->add('localplugins', new admin_category('affiliationsroot', new lang_string('pluginname', 'local_affiliations')));
+    // Add regular settings page to the affiliations node.
+    $settings = new admin_settingpage('local_affiliations', get_string('settings', 'local_affiliations'));
+    $ADMIN->add('affiliationsroot', $settings);
+
+    // Add affiliations description that is shown when a user is adding affiliations.
+    $name = 'local_affiliations/addaffiliationsdescription';
+    $title = get_string('addaffiliationsdescriptionlabel', 'local_affiliations');
+    $description = get_string('addaffiliationsdescriptionhelp', 'local_affiliations');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, get_string('addaffiliationsdescriptiondefault', 'local_affiliations'));
+    $settings->add($setting);
+
+    // Confirmation text that is shown when a user is adding affiliations.
+    $name = 'local_affiliations/confirmationtext';
+    $title = get_string('confirmationtextlabel', 'local_affiliations');
+    $description = get_string('confirmationtexthelp', 'local_affiliations');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, get_string('confirmationtextdefault', 'local_affiliations'));
+    $settings->add($setting);
+
+    // Add manage affiliates page to the affiliations node.
+    $ADMIN->add('affiliationsroot', new admin_externalpage('local_affiliations_manageaffiliates', get_string('manageaffiliates', 'local_affiliations'),
+            new moodle_url('/local/affiliations/admin/manageaffiliates.php')));
+
+
 
 }
 

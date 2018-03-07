@@ -29,8 +29,25 @@
  *
  */
 
-$plugin->version  = 2018030700;
-$plugin->requires = 2016120500;
-$plugin->release = '0.2';
-$plugin->maturity = MATURITY_BETA;
-$plugin->component = 'local_affiliations';
+defined('MOODLE_INTERNAL') || die();
+
+$observers = array(
+ 
+    array(
+        'eventname'   => '\local_affiliations\event\affiliate_created',
+        'callback'    => 'local_affiliations_observer::affiliate_created',
+    ),
+    array(
+        'eventname'   => '\local_affiliations\event\affiliate_deleted',
+        'callback'    => 'local_affiliations_observer::affiliate_deleted',
+    ),
+     array(
+        'eventname'   => '\local_affiliations\event\affiliate_added',
+        'callback'    => 'local_affiliations_observer::affiliate_added',
+    ),
+    array(
+        'eventname'   => '\local_affiliations\event\affiliate_removed',
+        'callback'    => 'local_affiliations_observer::affiliate_removed',
+    )
+ 
+);
